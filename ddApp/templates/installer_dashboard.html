@@ -1,0 +1,42 @@
+{% extends 'top.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'assign_work.css' %}">
+
+    <style>
+        .form2 {
+            width: 200px;
+            margin: 0;
+            padding: 0;
+
+        }
+        .form-container1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<div class="form-container1">
+<form  method="post" action="{% url 'district' %}">
+    {% csrf_token %}
+    <div id="heading">Select State</div><br>
+    <p>
+        {{ form.state }}
+        <input id='button' type="submit" value="Select">
+    </p>
+</form>
+
+<form>
+    {% csrf_token %}
+    <div id="heading">Select District</div><br>
+    <div>{{ district_form.district }}
+        <input id='button' type="submit" value="Select">
+    </div>
+
+</form>
+</div>
+{% endblock %}

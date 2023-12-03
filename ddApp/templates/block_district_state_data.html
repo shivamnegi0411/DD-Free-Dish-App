@@ -1,0 +1,64 @@
+{% extends 'top.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'data_tables.css' %}">
+        <style>
+                th, td {
+            padding: 5px;
+            text-align: center;
+            font-size: 10px;
+        }
+                a.button {
+
+
+            padding: 5px 10px;
+            font-size: 10px;
+        }
+                .states-data {
+
+            padding: 10px;
+            margin: 10px;
+
+
+            }
+    </style>
+</head>
+<body>
+
+<div class="path">
+    {{ state }} <b>></b> {{ district }} <b>></b>
+</div>
+<div class="states-data">
+
+
+    <table>
+        <tr>
+            <th>Block</th>
+            <th>Select Block</th>
+            <th>Total</th>
+            <th>Completed</th>
+            <th>Not Assigned</th>
+
+        </tr>
+
+    {% for id,block,total,done, not_assigned in zipped %}
+
+        <tr>
+            <td>{{ block }}</td>
+            <td><a href="{% url 'bes_block' id %}" class="button">Select</a></td>
+            <td>{{ total }}</td>
+            <td>{{ done }}</td>
+            <td>{{ not_assigned }}</td>
+
+
+        </tr>
+        {% endfor %}
+    </table>
+
+
+
+</body>
+</html>
+
+{% endblock %}

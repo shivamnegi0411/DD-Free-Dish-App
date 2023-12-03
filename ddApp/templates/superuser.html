@@ -1,0 +1,146 @@
+{% extends 'top.html' %}
+{% load static %}
+{% block content %}
+
+    <style>
+        /* Apply CSS styles for improved appearance */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container2 {
+            max-width: 100%;
+            padding: 10px;
+            padding-bottom: 10%;
+        }
+
+        .flex2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .flex2 {
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+        }
+
+        .states-data {
+            width: 100%;
+            background-color: #fff;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+
+        .status {
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-gap: 20px 20px;
+            background-color: #fff;
+            padding: 20px 30px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align:center;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .center {
+            text-align: center;
+            }
+
+        a.button {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 10px;
+        }
+        .item-1 {
+            grid-column: 1/3;
+            border-bottom: 1px solid;
+        }
+        .item-10 {
+            grid-column: 1/3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container2">
+    <div class="flex2">
+        <div class="status">
+            <div class="item-1"><h2>Total Installations Status</h2></div>
+            <div class="item-2">Total Installers     :</div>
+            <div class="item-3">{{ total_ins }}</div>
+            <div class="item-4">Total Beneficiaries  :</div>
+            <div class="item-5">{{ total_bes }}</div>
+            <div class="item-6">Total Work Assigned  :</div>
+            <div class="item-7"> {{ total }}</div>
+            <div class="item-8">Total Work Completed :</div>
+            <div class="item-9">{{ completed_tasks }}<br></div>
+            <div class="item-10"><a href="{% url 'dashboard' %}" class="button" style="font-size: 20px;">Assign New Tasks</a></div>
+        </div>
+
+        <div class="states-data">
+
+            <table>
+                <tr>
+                    <th>State</th>
+                    <th>Select State</th>
+                    <th>Assigned</th>
+                    <th>Completed</th>
+                    <th>Not Assigned</th>
+                </tr>
+                {% for id, state, total, done, not_assigned in zipped %}
+                <tr>
+                    <td>{{ state }}</td>
+                    <td><a href="{% url 'district_state_data' id %}" class="button">Select</a></td>
+                    <td>{{ total }}</td>
+                    <td>{{ done }}</td>
+                    <td>{{ not_assigned }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

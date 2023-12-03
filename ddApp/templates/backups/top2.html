@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>DD Tabsons</title> {% endblock %}
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+.vertical-bar {
+    font-size: 3vh;
+    }
+    span {
+        font-size: 3vh;
+        }
+
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* Initially hidden */
+}
+
+/* Animation for the loading spinner */
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+    .messages {
+        background-color: rgb(245, 184, 0);
+        padding: 3em;
+        color: black;
+        width: 100vw;
+    }
+    .top-icons {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+    }
+    .top-icons > img {
+        height: 5vh;
+    }
+    .sidebar {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+    }
+
+
+    .sidebar > div {
+        flex: 33.3%;
+        display: flex;
+
+        }
+    .sidebar > div > img {
+        height: 5vh;
+        background-color: transparent;
+    }
+    .jleft {
+        justify-content: flex-start;
+        padding-left: 1vw;
+        font-size: 3.5vh;
+
+    }
+    .jcenter {
+        justify-content: center;
+    }
+    .jright {
+        justify-content: flex-end;
+        padding-right: 1vw;
+    }
+
+
+    .time-bar {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+
+        }
+    .side-bar {
+        flex:20%;
+        display:flex;
+        justify-content: flex-start;
+        padding-left: 1vh;
+
+    }
+    .time {
+        flex:80%;
+        display:flex;
+        justify-content: space-evenly;
+        align-items: center;
+        padding-right: 1vw;
+
+        font-size: 1vh;
+    }
+
+    .side-bar-content {
+        position: fixed;
+        left: 0;
+        background-color: white;
+        display: none;
+        width: 30vw;
+        height: 100vh;
+        flex-flow: column nowrap;
+        float:left;
+    }
+    .bar {
+        position:fixed;
+        right:0;
+        background-color: black;
+        opacity: 0.5;
+        width: 70vw;
+        height: 100vh;
+        display: none;
+        float: right;
+        }
+    .side-bar-content > div, .side-bar-content > a {
+        display: flex;
+        width:100%;
+        justify-content: center;
+        align-items: center;
+        padding:10%;
+
+    }
+@media (min-width: 768px) {
+    .side-bar {
+        display: none;
+    }
+    .time {
+    justify-content: center;
+    }
+}
+
+
+
+</style>
+
+</head>
+
+<body>
+
+
+
+
+<div class="sidebar">
+    <div class="jleft"><img height="40vh" src="{% static 'free_dish_logo.jpg' %}"></div>
+    <div class="jcenter"><img src="{% static 'dd.png' %}" alt="Left Logo"></div>
+    <div class="jright"><img src="{% static 'g20.png' %}" alt="Middle Logo"></div>
+</div>
+
+
+
+<div>
+<hr>
+</div>
+
+
+<div class="time-bar">
+    <!-- Add your logo here -->
+    <div class="side-bar" onclick="showSideBar()">
+        <span><b>&#9776;</b></span>
+    </div>
+
+    <div class="time">
+        <span class="" id="indian-date"></span>
+        <span class="vertical-bar">|</span>
+        <span class="" id="indian-time"></span>
+    </div>
+</div>
+
+<div>
+<hr>
+</div>
+<div class="loader"></div>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+<div>
+
+<div class="side-bar-content" id="side-bar-content">
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}"><div><b>Logout</b></div></a>
+    {% else %}
+        <a href="{% url 'login' %}"><div><b>Login</b></div></a>
+    {% endif %}
+</div>
+    <div class="bar" id="bar" onclick="hideSideBar()">
+        </div>
+
+
+
+
+
+</body>
+<script>
+    function showSideBar() {
+            var side_content = document.getElementById('side-bar-content');
+            var slider = document.getElementById('slideshow');
+            var close_bar = document.getElementById('bar')
+                close_bar.style.visibility = 'visible';
+                side_content.style.display = 'flex';
+                close_bar.style.display = 'block';
+                slider.style.visibility = 'hidden';
+        }
+    function hideSideBar() {
+            var side_content = document.getElementById('side-bar-content');
+            var slider = document.getElementById('slideshow');
+            var close_bar = document.getElementById('bar')
+
+                close_bar.style.visibility = 'hidden';
+                side_content.style.display = 'none';
+                slider.style.visibility = 'visible';
+                close_bar.style.display = 'none';
+
+
+        }
+
+
+    // JavaScript to hide the loading spinner when the content is loaded
+    window.addEventListener('load', function() {
+        var loader = document.querySelector('.loader');
+        loader.style.display = 'none';
+    });
+
+
+
+
+
+    // JavaScript to display the Indian time and date
+    function displayIndianDateTime() {
+        const optionsTime = { timeZone: 'Asia/Kolkata', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        const optionsDate = { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'long', day: 'numeric' };
+
+        const indianTime = new Date().toLocaleTimeString('en-US', optionsTime);
+        const indianDate = new Date().toLocaleDateString('en-US', optionsDate);
+
+        document.getElementById('indian-time').textContent = indianTime;
+        document.getElementById('indian-date').textContent = indianDate;
+    }
+
+    // Update the time and date every second
+    setInterval(displayIndianDateTime, 1000);
+
+    // Initial display
+    displayIndianDateTime();
+
+</script>
+</html>

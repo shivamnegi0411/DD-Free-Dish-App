@@ -1,0 +1,120 @@
+{% extends 'top.html' %}
+{% block content %}
+<style>
+    h3 {
+        text-align: center;
+        background-color: grey;
+        padding: 1em 2em;
+        color: white;
+    }
+    .assigned-tasks, .completed-tasks {
+        margin: 0.5em 2em;
+    }
+
+    .beneficiary-details {
+        text-align: ;
+        padding: 1em 2em;
+        background-color: rgb(23, 173, 232);
+        color: white;
+        border-radius: 2em;
+        margin-bottom: 2em;
+    }
+    .btn {
+        width: 100%;
+        border-radius: 2em;
+        padding:0.5em;
+        font-size: 1em;
+    }
+    th {
+        text-align: left;
+        width: 30%;
+    }
+
+
+</style>
+<h3>Assigned Tasks</h3>
+
+
+<div class="assigned-tasks">
+
+{% if tasks %}
+    {% for task in tasks %}
+        {% if task.completion != 'Installation Done!' %}
+            <div class="beneficiary-details">
+                <table>
+                    <tr>
+                        <th>Name:</th>
+                        <td>{{ task.beneficiary.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address:</th>
+                        <td>{{ task.beneficiary.address }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pincode:</th>
+                        <td>{{ task.beneficiary.pincode }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mobile no.:</th>
+                        <td>{{ task.beneficiary.mobile }}</td>
+                    </tr>
+                    <tr>
+                        <th>Task Status:</th>
+                        <td>{{ task.completion }}</td>
+                    </tr>
+                </table>
+
+
+            {% if task.completion == 'Assigned' %}
+                <a href="{% url 'change_task_status' task.id %}"><input class="btn" type="submit" value="Accept Task"></a>
+            {% else %}
+                <a href="{% url 'process_page' task.id %}"><input class="btn" type="button" value="View Details"></a>
+            {% endif %}
+             </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+</div>
+
+
+<h3>Completed Tasks</h3>
+<div class="completed-tasks">
+
+{% if tasks %}
+    {% for task in tasks %}
+        {% if task.completion == 'Installation Done!' %}
+            <div class="beneficiary-details">
+                <table>
+                    <tr>
+                        <th>Name:</th>
+                        <td>{{ task.beneficiary.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address:</th>
+                        <td>{{ task.beneficiary.address }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pincode:</th>
+                        <td>{{ task.beneficiary.pincode }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mobile no.:</th>
+                        <td>{{ task.beneficiary.mobile }}</td>
+                    </tr>
+                    <tr>
+                        <th>Task Status:</th>
+                        <td>{{ task.completion }}</td>
+                    </tr>
+                </table>
+            </div>
+
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'top.html' %}
+{% load static %}
+{% block content %}
+
+
+<br><br><br>
+        <form method="post">
+            {% csrf_token %}
+            <h1>Login</h1><br><br>
+            <div class="form-group">
+                <label for="username">Username or Email:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                {{ form.password }}
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>DD Free Dish</title>
+    {% load static %}
+    <style>
+        
+        /* Add CSS for the horizontal border */
+        .time-container {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            text-align: center;
+            position: relative; /* Add position relative to the time container */
+        }
+
+        /* Style the time and date */
+        .time {
+            display: inline-block;
+            padding: 5px 10px;
+        }
+
+        /* Style the vertical bar */
+        .vertical-bar {
+            display: inline-block;
+            margin: 0 10px;
+            border-left: 1px solid #000;
+            height: 1em;
+        }
+
+        /* Add CSS for the blue horizontal border */
+        .second-border {
+            border-top: 80px solid white;
+            position: relative; /* Add position relative to the blue border */
+            height: 5px;
+        }
+
+        /* Style the navigation buttons */
+        .nav-button {
+            color: black;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 20px;
+            font-family: Verdana, sans-serif;
+        }
+
+        /* Change color on hover */
+        .nav-button:hover {
+            color: darkblue;
+        }
+
+        /* Center the navigation buttons vertically and horizontally */
+        .nav-container {
+            position: absolute;
+            top: 480%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin-top: -65px;
+        }
+
+        .nav-container_about_us {
+            position: absolute;
+            top: 14500%;
+            left: 1150px;
+            transform: translate(-50%, -50%);
+            margin-top: -65px;
+            font-family: Verdana, sans-serif;
+            font-size: 35px;
+            color: aliceblue;
+        }
+
+        .nav-container_services {
+            position: absolute;
+            top: 1910px;
+            left: 960px;
+            transform: translate(-50%, -50%);
+            font-family: Verdana, sans-serif;
+            font-size: 35px;
+            z-index: 1;
+            color: aliceblue;
+        }
+
+        .nav-container_contact {
+            position: absolute;
+            top: 2590px;
+            left: 960px;
+            transform: translate(-50%, -50%);
+            margin-top: -65px;
+            font-family: Verdana, sans-serif;
+            font-size: 35px;
+            color: white;  
+            z-index: 1;
+        }
+
+
+        /* Style the logo */
+        .logo_satyamev {
+            position: absolute;
+            top: 30px; /* Adjust the top position to place it above the blue border */
+            left: 10%; /* Center the logo horizontally */
+            transform: translateX(-50%) scale(0.023); /* Center the logo horizontally and reduce its size by 50% */
+            transform-origin: center top; /* Change the orientation to place the logo's center at the top */
+            z-index: 1;
+        }
+
+        .dd_logo {
+            position: absolute;
+            top: 33px; /* Adjust the top position to place it above the blue border */
+            left: 92%; /* Center the logo horizontally */
+            transform: translateX(-200%) scale(0.08); /* Center the logo horizontally and reduce its size by 50% */
+            transform-origin: center top; /* Change the orientation to place the logo's center at the top */
+            z-index: 1;
+        }
+
+        .g20_logo {
+            position: absolute;
+            top: 34px; /* Adjust the top position to place it above the blue border */
+            left: 18%; /* Center the logo horizontally */
+            transform: translateX(-60%) scale(0.3); /* Center the logo horizontally and reduce its size by 50% */
+            transform-origin: center top; /* Change the orientation to place the logo's center at the top */
+            z-index: 1;
+        }
+        .logo_flag {
+            position: absolute;
+            top: 10px; /* Adjust the top position to place it above the blue border */
+            left: 90%; /* Center the logo horizontally */
+            transform: translateX(-50%) scale(0.23); /* Center the logo horizontally and reduce its size by 50% */
+            transform-origin: center top; /* Change the orientation to place the logo's center at the top */
+            z-index: 1;
+        }
+
+        .tabsons_logo {
+            position: absolute;
+            top: 45px; /* Adjust the top position to place it above the blue border */
+            left: 80%; /* Center the logo horizontally */
+            transform: translateX(-50%) scale(0.30); /* Center the logo horizontally and reduce its size by 50% */
+            transform-origin: center top; /* Change the orientation to place the logo's center at the top */
+            z-index: 1;
+        } */
+
+    
+        /* Style the photo slideshow container */
+        .slideshow-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative; /* Add relative position to the slideshow container */
+        }
+
+        /* Style the individual photos in the slideshow */
+        .slideshow-photo {
+            display: none;
+            width: 100%;
+            height: 500px;
+        }
+
+        /* Style the left and right arrow buttons */
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px; /* Increase the font size for larger arrows */
+            cursor: pointer;
+            z-index: 2; /* Ensure the arrows are above the slides */
+            background-color: rgba(255, 255, 255, 0.5); /* Add a semi-transparent background for better visibility */
+            padding: 10px 20px; /* Add padding for better clickability */
+        }
+        
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        } 
+
+        /* Add CSS for the scrollable content */
+        .scrollable-content {
+            overflow-y: auto; /* Add vertical scrollbar */
+            max-height: 100vh; /* Limit the maximum height to the viewport height */
+        }
+
+        /* Style the text under "About DD Free Dish" */
+    .about-text p {
+        margin-left: 770px;
+        margin-top: 140px;
+        text-align: justify;
+        line-height: 2;
+        padding-top: 0.09;
+        padding-right: 70px;
+        border: 0 solid #4CAF50;
+        font-family: Verdana, sans-serif;  
+    }
+
+    .doordarshan p {
+        margin-right: 770px;
+        margin-top: 70px;
+        text-align: justify;
+        line-height: 2;
+        padding-top: 0.09;
+        padding-left: 50px;
+        border: 0 solid #4CAF50;
+        font-family: Verdana, sans-serif;  
+    }
+    /* Add styling for the services section */
+.services-section {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: -500px;
+}
+
+/* Style individual service items */
+.service {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s; /* Add transition for smooth effect */
+
+    /* Initial styles for service items */
+    background-color: #fff;
+    color: #333;
+}
+
+/* Add hover effect */
+.service:hover {
+    background-color: blue; /* Change background color on hover */
+    color: #fff; /* Change text color on hover */
+}
+
+.service h3 {
+    font-size: 18px;
+    color: #333;
+}
+
+.service p {
+    font-size: 14px;
+    color: #666;
+}
+/* Style the Contact Us section */
+.contact-section {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px; /* Adjust as needed */
+}
+
+/* Style the form */
+#contact-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.submit-button {
+    background-color: blue;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Style the button on hover */
+.submit-button:hover {
+    background-color: darkblue;
+}
+/* Style for Scroll to Top button */
+#scrollToTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  background-color: darkblue;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+#scrollToTopBtn:hover {
+  background-color: blue;
+}
+/* Style the footer */
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Style the copyright notice */
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+
+
+</style>
+</head>
+<body>
+
+    <div class="scrollable-content"> <!-- Wrap your content in this div -->
+        <!-- Your website content goes here -->
+    </div>
+    <!-- Create a container for the time -->
+    <div class="time-container">
+        <!-- Add your logo here -->
+        <img src="{% static 'satyamev.png' %}" alt="Logo" class="logo_satyamev">
+        <img src="{% static 'dd.png' %}" alt="Logo" class="dd_logo">
+        <img src="{% static 'g20.png' %}" alt="Logo" class="g20_logo">
+        <img src="{% static 'flag.png' %}" alt="Logo" class="logo_flag">
+        <img src="{% static 'tabsons.png' %}" alt="Logo" class="tabsons_logo">
+        <span class="time" id="indian-date"></span>
+        <span class="vertical-bar"></span>
+        <span class="time" id="indian-time"></span>
+    </div>
+    
+    <!-- Add the blue horizontal border -->
+    <div class="second-border">
+        <!-- Add navigation buttons -->
+        <div class="nav-container">
+            <a href="#" class="nav-button">Home</a>
+            <a href="#about-free-dish" class="nav-button">About Free Dish</a>
+            <a href="#services" class="nav-button">Services</a>
+            <a href="#contact" class="nav-button">Contact</a>
+            <a href=" {% url 'login' %}" class="nav-button">Log In</a>
+        </div>
+        
+        <!-- Add the photo slideshow container -->
+        <div class="slideshow-container">
+            <!-- Add your slideshow photos with appropriate class -->
+            <img src="{% static 'modiji.jpg' %}" alt="Slideshow Photo" class="slideshow-photo">
+            <img src="{% static 'ekbharat.jpg' %}" alt="Slideshow Photo" class="slideshow-photo">
+            <img src="{% static 'poor.jpg' %}" alt="Slideshow Photo" class="slideshow-photo">
+            <img src="{% static 'modish.jpg' %}" alt="Slideshow Photo" class="slideshow-photo">
+            <img src="{% static 'staysafe.jpg' %}" alt="Slideshow Photo" class="slideshow-photo">
+
+             <!-- Add left and right arrow buttons -->
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+
+        <!-- Add an additional image under the slideshow -->
+        <img src="{% static 'aboutus.png' %}" alt="Additional Image" style="position: relative; top: 20px; height: 80px; margin: 0 auto; width: 100%;" />
+
+        <!-- Add a div for the text under "About DD Free Dish" -->
+        <div id="about-free-dish" class="about-text">
+        <p><b> Free Dish DTH service is owned and operated by Public Service Broadcaster Prasar Bharati
+        It was launched in December, 2004. DD Free Dish is the only Free-to-Air (FTA) Direct-To-Home (DTH) Service where there is no monthly subscription fee from the viewers.
+        It is very affordable for all as it requires only a small one time investment of about Rs. 2000/- for purchasing of Set-to-Box (STB) and small sized Dish Antenna with accessories.
+        The unique free to air model has made DD Free Dish the largest DTH platform.</b></p>
+        </div>
+
+        <div class="doordarshan">
+            <p><b>
+                Doordarshan – literally, a glimpse of all afar- is the face of and a witness to India’s metamorphosis to a global leader in digital communications.
+
+                Interestingly, the illusory cyber paths that crisscross homes and streets and represent the voice a billion-plus Indians today, actually began with a modest experiment in public service telecasting on September 15, 1959. The makeshift studio and its players beamed their voice and visuals through a small transmitter, daring to dream of becoming the prime vehicle of development of a nation that had shrugged off its yoke of slavery just over a decade earlier.
+
+                The experiment became a service in 1965, when Doordarshan began beaming signals to reach television sets in living rooms in and around the country’s capital, New Delhi. By 1972, services were extended to Mumbai and Amritsar and then on, to seven other cities by 1975. All this time, it was part of the national broadcaster, All India Radio. On April 1, 1976, it transited to become a separate Department in the Ministry of Information and Broadcasting, though still serviced by All India Radio, especially for its news.
+
+                Since then, the organisation has grown to cover the length and breadth of the country, painstakingly caring for the interest of all linguistic, geographical and cultural groups and promoting social, cultural and educational development of the country though an array of transmitter networks equipped with studios and facilities to produce programmes even in regional languages.
+
+                In doing so, the country’s prime television service provider has also become the engine for celebration of its diversity and the iteration of its unity. It has been able to do so because it has no single market to pamper – because it is the harbinger of news and information services to every geographical community, all occupational group and each assemble of interests.
+
+                At Doordarshan, engineering blends with creativity to make it a role model as a matrix of genres evolve from a spread of centers, an array of transmissions and hundreds of studios. This fusion of modern digital engineering hardware and the software of a three tier programme service spreads nationally, regionally and even locally.
+
+                Over the decades, the results of this melt of engineering and creativity have captivated million who would be glued to television sets to watch anything from news to cricket match telecasts, exhibitions of art, culture and Bollywood to education on the arts and sciences alike, from catering to a vast farming community to catalysing the growth of industry and commerce.
+
+                Over the years Doordarshan has grown into a network operating 34 satellite channels besides providing free-to-air DTH service having 104 in its bookings. Indeed, that single studio from its small departmental home in All India Radio has grown into 66 studio centers all over the country, including 17 major studio centers at State capitals and 49 other studio centers located in various cities.
+            </p></b>
+        </div>
+
+        <div class="nav-container_about_us">
+            <p><b>About DD Free Dish</b></p>
+            <div class="about-image">
+                <img src="{% static 'freedish2.jpg' %}" alt="Image" style="width: 700px; height: 200px; position: relative; top: 90px; right: 750px;  border: 2px solid #000;">
+            </div>
+        </div>
+
+        <!-- Add an additional image under the slideshow -->
+        <div class="nav-container_services">
+            <p><b>Services</b></p>
+        </div>
+        <img src="{% static 'aboutus.png' %}" alt="Additional Image" style="position: relative; top: 40px; height: 80px; margin: 0 auto; width: 100%;" />
+    
+        
+        <div class="chatri-image">
+            <img src="{% static 'chatri.jpg' %}" alt="Image" style="width: 700px; height: 500px; position: relative; bottom: 950px; left: 1100px;  border: 0px solid #000;">
+            <img src="{% static 'dish.jpg' %}" alt="Image" style="width: 500px; height: 300px; position: relative; bottom: 600px; right: -500px;  border: 0px solid #000;">
+
+        </div>
+        <!-- Add a new section below the Services class for services -->
+    <div id="services" class="services-section">
+            <h2>Our Services</h2>
+        <div class="service">
+            <h3>Service 1</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur.</p>
+        </div>
+        <div class="service">
+            <h3>Service 2</h3>
+            <p>Etiam venenatis ex nec mauris interdum, ut ultrices neque laoreet.</p>
+        </div>
+        <div class="service">
+            <h3>Service 3</h3>
+            <p>Quisque non arcu non mi bibendum efficitur. Nam ac justo a urna.</p>
+        </div>
+    </div>
+
+
+    <div class="nav-container_contact">
+        <p><b>Contact</b></p>
+    </div>
+        <img src="{% static 'aboutus.png' %}" alt="Additional Image" style="position: relative; top: 40px; height: 80px; margin: 0 auto; width: 100%;" />
+
+    <!-- Add a "Contact Us" section -->
+<div id="contact" class="contact-section">
+    <form id="contact-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <button type="submit" class="submit-button">Submit</button>
+    </form>
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" onclick="scrollToTop()" title="Go to top">Top</button>
+
+</div>
+<footer>
+    <p>&copy; 2023 BVMTrios. All rights reserved.</p>
+</footer>
+
+    
+
+
+</body>
+</html>

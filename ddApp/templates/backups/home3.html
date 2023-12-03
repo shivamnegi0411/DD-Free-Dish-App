@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home DD App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display:flex;
+            flex-flow: column nowrap;
+            font-size: 2em;
+        }
+        .assigned-tasks {
+            display: flex;
+            flex-flow: column wrap;
+            align-items: center;
+
+            }
+
+        li {
+            background-color: grey;
+            padding:2em;
+        }
+        .beneficiary-details {
+            background-color: white;
+            padding:1em;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="assigned-tasks">
+        <h3>Your Assigned Tasks</h3>
+        {% if tasks %}
+
+            {% for task in tasks %}
+                {% if task.completion != 'Installation Done!' %}
+
+                        <div class="beneficiary-details">
+                            <p><strong>Name:</strong> {{ task.beneficiary.name }}</p>
+                            <p><strong>Address:</strong> {{ task.beneficiary.address }}</p>
+                            <p><strong>Pincode:</strong> {{ task.beneficiary.pincode }}</p>
+                            <p><strong>Mobile no.:</strong> {{ task.beneficiary.mobile }}</p>
+                            <p><strong>Task Status:</strong> {{ task.completion }}</p>
+                        </div>
+
+
+                    {% if task.completion == 'Assigned' %}
+                        <form method="post" action="{% url 'change_task_status' task.id %}">
+                            {% csrf_token %}
+                            <input class="btn" type="submit" value="Accept Task">
+                        </form>
+                    {% endif %}
+
+                    {% if task.completion != 'Assigned' %}
+                    <a href="{% url 'process_page' task.id %}"><input class="btn" type="button" value="View Details"></a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+        {% else %}
+        <p class="no-tasks">No assigned tasks</p>
+        {% endif %}
+        </div>
+
+        <div class="completed-tasks">
+       <h3>Your Completed Tasks</h3>
+        {% if tasks %}
+        <ul>
+            {% for task in tasks %}
+                {% if task.completion == 'Installation Done!' %}
+                    <li>
+
+                        <button type="button" class="btn-beneficiary-details">{{ task.beneficiary }}</button>
+                        <div class="beneficiary-details">
+                            <p><strong>Name:</strong> {{ task.beneficiary.name }}</p>
+                            <p><strong>Address:</strong> {{ task.beneficiary.address }}</p>
+                            <p><strong>Pincode:</strong> {{ task.beneficiary.pincode }}</p>
+                            <p><strong>Mobile no.:</strong> {{ task.beneficiary.mobile }}</p>
+                            <p><strong>Task Status:</strong> {{ task.completion }}</p>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-tasks">No Completed tasks</p>
+        {% endif %}
+    </div>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DD Free Dish</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="time-container">
+        <span class="time" id="indian-date"></span>
+        <span class="vertical-bar"></span>
+        <span class="time" id="indian-time"></span>
+    </div>
+    <div class="hero">
+        <nav>
+            <img src="{% static 'images/dd.png' %}" class="logo">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+
+            <img src="{% static 'images/profile.png' %}" class="user-pic" onclick="toggleMenu()">
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    {% if user.is_authenticated %}
+                    <div class="user-info">
+                        <img src="{% static 'images/profile.png' %}">
+                        <h3>{{ user.username }}</h3>
+                    </div>
+
+                    <hr>
+
+                    <a href="{% url 'profile' %}" class="sub-menu-link">
+                        <img src="{% static 'images/profile.png' %}">
+                        <p>Profile</p>
+                        <span>></span>
+                    </a>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'superuser_dashboard' %}" class="sub-menu-link">
+                    {% else %}
+                        <a href="{% url 'user_dashboard' %}" class="sub-menu-link">
+                    {% endif %}
+
+
+                        <img src="{% static 'images/setting.png' %}">
+                        <p>Dashboard</p>
+                        <span>></span>
+                    </a>
+                    <a href="{% url 'contact' %}" class="sub-menu-link">
+                        <img src="{% static 'images/help.png' %}">
+                        <p>Help & Support</p>
+                        <span>></span>
+                    </a>
+                    <a href="{% url 'logout' %}" class="sub-menu-link">
+                        <img src="{% static 'images/logout.png' %}">
+                        <p>logout</p>
+                        <span>></span>
+                    </a>
+
+                    {% else %}
+                    <a href="{% url 'login' %}" class="sub-menu-link">
+                        <img src="{% static 'images/login.png' %}">
+                        <p>login</p>
+                        <span>></span>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <div class="moving-text-container">
+            <div class="moving-text">
+                <b>DD FREE DISH</b>
+            </div>
+        </div>
+        {% block content %} {% endblock %}
+    </div>
+    <footer>
+        <p>&copy; 2023 BVMTrios. All rights reserved.</p>
+    </footer>
+
+
+
+<script>
+     // JavaScript to display the Indian time and date
+     function displayIndianDateTime() {
+       const optionsTime = { timeZone: 'Asia/Kolkata', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+       const optionsDate = { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'long', day: 'numeric' };
+
+       const indianTime = new Date().toLocaleTimeString('en-US', optionsTime);
+       const indianDate = new Date().toLocaleDateString('en-US', optionsDate);
+
+       document.getElementById('indian-time').textContent = indianTime;
+       document.getElementById('indian-date').textContent = indianDate;
+
+   }
+
+   // Update the time and date every second
+   setInterval(displayIndianDateTime, 1000);
+
+   // Initial display
+   displayIndianDateTime();
+
+    let subMenu = document.getElementById("subMenu");
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const elementToScrollTo = document.getElementById('openview');
+    if (elementToScrollTo) {
+        elementToScrollTo.scrollIntoView({ behavior: 'smooth' });
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home DD App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        form {
+            display: inline;
+        }
+
+        input[type="submit"], input[type="button"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover, input[type="button"]:hover {
+            background-color: #1e7e34;
+        }
+
+        .no-tasks {
+            color: #777;
+        }
+
+        /* Additional styling for better visibility */
+        .beneficiary-details {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .beneficiary-details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    {% extends "base.html" %}
+    {% block content %}
+    <div>
+        <h3>Your Assigned Tasks</h3>
+        {% if tasks %}
+        <ul>
+            {% for task in tasks %}
+                {% if task.completion != 'Installation Done!' %}
+            <li>
+                <button type="button" class="btn-beneficiary-details">{{ task.beneficiary }}</button>
+                <div class="beneficiary-details">
+                    <p><strong>Name:</strong> {{ task.beneficiary.name }}</p>
+                    <p><strong>Address:</strong> {{ task.beneficiary.address }}</p>
+                    <p><strong>Pincode:</strong> {{ task.beneficiary.pincode }}</p>
+                    <p><strong>Mobile no.:</strong> {{ task.beneficiary.mobile }}</p>
+                    <p><strong>Task Status:</strong> {{ task.completion }}</p>
+                </div>
+                <p>
+
+                        {% if task.completion == 'Assigned' %}
+                        <form method="post" action="{% url 'change_task_status' task.id %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Accept Task">
+                        </form>
+                        {% endif %}
+
+                        {% if task.completion != 'Assigned' %}
+                        <a href="{% url 'process_page' task.id %}"><input type="button" value="View Details"></a>
+                {% endif %}
+                {% endif %}
+
+
+                </p>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-tasks">No assigned tasks</p>
+        {% endif %}
+
+
+       <h3>Your Completed Tasks</h3>
+        {% if tasks %}
+        <ul>
+            {% for task in tasks %}
+                {% if task.completion == 'Installation Done!' %}
+                    <li>
+
+                        <button type="button" class="btn-beneficiary-details">{{ task.beneficiary }}</button>
+                        <div class="beneficiary-details">
+                            <p><strong>Name:</strong> {{ task.beneficiary.name }}</p>
+                            <p><strong>Address:</strong> {{ task.beneficiary.address }}</p>
+                            <p><strong>Pincode:</strong> {{ task.beneficiary.pincode }}</p>
+                            <p><strong>Mobile no.:</strong> {{ task.beneficiary.mobile }}</p>
+                            <p><strong>Task Status:</strong> {{ task.completion }}</p>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-tasks">No Completed tasks</p>
+        {% endif %}
+    </div>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+    {% endblock %}
+</body>
+</html>

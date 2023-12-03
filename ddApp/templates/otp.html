@@ -1,0 +1,57 @@
+{% extends 'top.html' %}
+{% load static %}
+{% block content %}
+    <style>
+    body {
+        text-align: center;
+        }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        align-content:space-evenly;
+        margin-top: 5vh;
+    }
+    form > div {
+        margin-bottom: 1em;
+    }
+
+    #beneficiary-field {
+        width: 80vw;
+        font-size: 2vh;
+        text-align: center;
+        background-color: rgb(23, 173, 232);
+        color: white;
+    }
+    #setup-box-field {
+        text-align: center;
+        width: 80vw;
+        font-size: 2vh;
+        padding: 1em;
+    }
+    #sub_btn {
+        width: 80vw;
+        height: 3em;
+        font-size: 2vh;
+        background-color: rgb(23, 173, 232);
+        color:white;
+
+    }
+    #otp {
+        text-align: center;
+        width: 80vw;
+        font-size: 2vh;
+        padding: 1em;
+        }
+    </style>
+
+
+<form method="post" action=" {% url 'confirm_passcode' task_id %}">
+    {% csrf_token %}
+    <div>{{ verify.beneficiary }}</div>
+    <div>{{ verify.setup_box }}</div>
+    <div>{{ verify.otp }}</div>
+    <input id='sub_btn' type="submit" value="Submit">
+</form>
+{% endblock %}

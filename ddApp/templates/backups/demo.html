@@ -1,0 +1,101 @@
+{% extends 'top.html' %}
+{% load static %}
+{% block content %}
+<form>
+    <label for="state">State:</label>
+    <select id="state" name="state">
+        <!-- Options for states go here -->
+    </select>
+
+    <label for="district">District:</label>
+    <select id="district" name="district" disabled>
+        <!-- Options for districts go here -->
+    </select>
+
+    <label>Blocks:</label>
+    <div id="block-checkboxes" disabled>
+        <!-- Checkboxes for blocks will be dynamically added here -->
+    </div>
+</form>
+<script>
+    // Sample data structure (you can replace this with your actual data)
+    var data = {
+        "State1": {
+            "District1": ["Block1", "Block2", "Block3"],
+            "District2": ["Block4", "Block5", "Block6"]
+        },
+        "State2": {
+            "District3": ["Block7", "Block8", "Block9"],
+            "District4": ["Block10", "Block11", "Block12"]
+        }
+    };
+
+    // Function to populate districts based on selected state
+    function populateDistricts() {
+        var stateSelect = document.getElementById("state");
+        var districtSelect = document.getElementById("district");
+        var selectedState = stateSelect.value;
+
+        // Clear existing options
+        districtSelect.innerHTML = "<option value=''>Select District</option>";
+
+        // Populate district options
+        if (selectedState !== "") {
+            for (var district in data[selectedState]) {
+                var option = document.createElement("option");
+                option.value = district;
+                option.text = district;
+                districtSelect.appendChild(option);
+            }
+            districtSelect.disabled = false;
+        } else {
+            districtSelect.disabled = true;
+        }
+
+        // Clear block checkboxes
+        var blockCheckboxes = document.getElementById("block-checkboxes");
+        blockCheckboxes.innerHTML = "";
+        blockCheckboxes.disabled = true;
+    }
+
+    // Function to populate block checkboxes based on selected district
+    function populateBlocks() {
+        var stateSelect = document.getElementById("state");
+        var districtSelect = document.getElementById("district");
+        var blockCheckboxes = document.getElementById("block-checkboxes");
+        var selectedState = stateSelect.value;
+        var selectedDistrict = districtSelect.value;
+
+        // Clear existing checkboxes
+        blockCheckboxes.innerHTML = "";
+
+        // Populate block checkboxes
+        if (selectedState !== "" && selectedDistrict !== "") {
+            var blocks = data[selectedState][selectedDistrict];
+            for (var i = 0; i < blocks.length; i++) {
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.name = "blocks[]";
+                checkbox.value = blocks[i];
+                checkbox.id = "block" + i;
+                var label = document.createElement("label");
+                label.htmlFor = "block" + i;
+                label.appendChild(document.createTextNode(blocks[i]));
+                blockCheckboxes.appendChild(checkbox);
+                blockCheckboxes.appendChild(label);
+            }
+            blockCheckboxes.disabled = false;
+        } else {
+            blockCheckboxes.disabled = true;
+        }
+    }
+
+    // Add event listeners
+    document.getElementById("state").addEventListener("change", populateDistricts);
+    document.getElementById("district").addEventListener("change", populateBlocks);
+
+    // Initial population of states
+    populateDistricts();
+</script>
+
+{% endblock %}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="time-container">
+        <span class="time" id="indian-date"></span>
+        <span class="vertical-bar"></span>
+        <span class="time" id="indian-time"></span> 
+    </div>
+    <div class="hero">
+        <nav>
+            <img src="images/dd.png" class="logo">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <img src="images/user.png" class="user-pic" onclick="toggleMenu()">
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="user-info">
+                        <img src="images/user.png">
+                        <h3>Shivam Negi</h3>
+                    </div>
+                    <hr>
+                    <a href="profile_show_main.html" class="sub-menu-link">
+                        <img src="images/profile.png">
+                        <p>Profile</p>
+                        <span>></span>
+                    </a>
+                    <a href="settings.html" class="sub-menu-link">
+                        <img src="images/setting.png">
+                        <p>Settings</p>
+                        <span>></span>
+                    </a>
+                    <a href="contact.html" class="sub-menu-link">
+                        <img src="images/help.png">
+                        <p>Help & Support</p>
+                        <span>></span>
+                    </a>
+                    <a href="index.html" class="sub-menu-link">
+                        <img src="images/logout.png">
+                        <p>logout</p>
+                        <span>></span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <div class="moving-text-container">
+            <div class="moving-text">
+                <b>DD FREE DISH</b> 
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2023 BVMTrios. All rights reserved.</p>
+    </footer>
+<script>
+     // JavaScript to display the Indian time and date
+     function displayIndianDateTime() {
+       const optionsTime = { timeZone: 'Asia/Kolkata', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+       const optionsDate = { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'long', day: 'numeric' };
+
+       const indianTime = new Date().toLocaleTimeString('en-US', optionsTime);
+       const indianDate = new Date().toLocaleDateString('en-US', optionsDate);
+
+       document.getElementById('indian-time').textContent = indianTime;
+       document.getElementById('indian-date').textContent = indianDate;
+   }
+
+   // Update the time and date every second
+   setInterval(displayIndianDateTime, 1000);
+
+   // Initial display
+   displayIndianDateTime();
+
+    let subMenu = document.getElementById("subMenu");
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
+</body>
+</html>

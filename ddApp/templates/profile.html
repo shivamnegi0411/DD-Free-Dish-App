@@ -1,0 +1,59 @@
+
+{% extends 'top.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<br><br><br>
+<div class="container">
+    <h1>User Profile</h1>
+    <div class="user-image">
+        <img src="{% static 'images/user.png' %}" alt="User Image">
+    </div>
+    <div class="user-details-box">
+        <div class="profile-info">
+            <label>Username:</label>
+            <p>{{ user.username }}</p>
+        </div>
+
+        <div class="profile-info">
+            <label>First Name:</label>
+            <p>{{ user.first_name }}</p>
+        </div>
+
+        <div class="profile-info">
+            <label>Last Name:</label>
+            <p>{{ user.last_name }}</p>
+        </div>
+
+        <div class="profile-info">
+            <label>Email Address:</label>
+            <p>{{ user.email }}</p>
+        </div>
+
+        <div class="profile-info">
+            <label>Address:</label>
+            <p>{{ user_details.state }}</p>
+        </div>
+
+        <div class="profile-info">
+            <label>City:</label>
+            <p>City</p>
+        </div>
+
+        <div class="profile-info">
+            <label>State:</label>
+            <p>{{ user_details.state }}</p>
+        </div>
+
+        <div class="profile-info">
+            <label>Phone Number:</label>
+            <p>{{ user_details.mobile }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

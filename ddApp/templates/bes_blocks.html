@@ -1,0 +1,214 @@
+{% extends 'top.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    form {
+        padding: 0;
+        margin: 0;
+
+    }
+    button {
+        font-size: 15px;
+        margin: 0;
+
+    }
+
+    .bar {
+        display: flex;
+        flex-flow: row;
+        justify-content: space-around;
+        margin-top: 10px;
+        }
+    .bes-list {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        background-color: rgb(30, 109, 179);
+        color: white;
+        padding: 3%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+    }
+
+    table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+        background-color: #f5f5f5;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        padding: 5px 0;
+    }
+
+    .completed {
+        background-color: #5cb85c; /* Green background for completed items */
+        color: #fff; /* White text on green background */
+    }
+
+    .pending {
+        background-color: #f0ad4e; /* Orange background for pending items */
+        color: #fff; /* White text on orange background */
+    }
+
+    .not-assigned {
+        background-color: #d9534f; /* Red background for not assigned items */
+        color: #fff; /* White text on red background */
+    }
+    .path {
+        text-align: center;
+        background-color: white;
+    }
+    .installed-by {
+        border: 1px solid;
+        padding: 5px;
+        }
+
+</style>
+<div id="responsive">
+<div class="path">
+    {{ state }} <b>></b> {{ district }} <b>></b> {{ block_name }} >>
+
+    <div class="bar">
+        <form method="post" action="{% url 'filtered_bes_block' 'Completed' %}">
+            {% csrf_token %}
+            <button type="submit">Completed</button>
+        </form>
+        <form method="post" action="{% url 'filtered_bes_block' 'Pending' %}">
+            {% csrf_token %}
+            <button type="submit">Pending</button>
+        </form>
+        <form method="post" action="{% url 'filtered_bes_block' 'Not' %}">
+            {% csrf_token %}
+            <button type="submit">Not Assigned</button>
+        </form>
+
+    </div>
+
+
+
+
+
+
+    {% if complete %}
+        {% for bes, ins in complete %}
+        <table>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Beneficiary
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    {{ bes.id }}
+                </td>
+                <td class="pending">
+                    <form method="post" action="{% url 'about_bes' bes.id %}">
+                        {% csrf_token %}
+                        <button  type="submit">{{ bes.name }}</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <i class="installed-by">
+            <form method="post" action="{% url 'about_ins' ins.id %}">
+                {% csrf_token %}
+                <button  type="submit">Processed by - {{ ins.name }}</button>
+            </form>
+        </i>
+        {% endfor %}
+
+    {% endif %}
+
+
+
+
+
+
+
+    {% if pendings %}
+    <ul>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Beneficiary</th>
+            </tr>
+        </table>
+        {% for bes, ins in pendings %}
+        <table>
+            <tr>
+                <td>
+                    {{ bes.id }}
+                </td>
+                <td class="pending">
+                    <form method="post" action="{% url 'about_bes' bes.id %}">
+                        {% csrf_token %}
+                        <button  type="submit">{{ bes.name }}</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <i class="installed-by">
+            <form method="post" action="{% url 'about_ins' ins.id %}">
+                {% csrf_token %}
+                <button  type="submit">In Process to - {{ ins.name }}</button>
+            </form>
+        </i>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+
+
+
+    {% if unassigned %}
+    <ul>
+
+        <table>
+                        <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Beneficiary
+                </th>
+            </tr>
+            {% for bes in unassigned %}
+            <tr>
+                <td>
+                    {{ bes.id }}
+                </td>
+                <td class="not-assigned">
+                    <form method="post" action="{% url 'about_bes' bes.id %}">
+                        {% csrf_token %}
+                        <button  type="submit">{{ bes.name }}</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </ul>
+    {% endif %}
+</div>
+    {% endblock %}
+
+

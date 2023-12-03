@@ -1,0 +1,23 @@
+{% extends 'top.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'assign_work.css' %}">
+</head>
+
+
+<form method="post" action="{% url 'district' %}">
+    {% csrf_token %}
+    <div id="heading">Select State</div>
+    {{ state_form.state }}
+    <input id="button" type="submit" value="change state">
+</form>
+
+<form id="openview" method="post" action="{% url 'blocks' %}">
+    {% csrf_token %}
+    <div id="heading">Select District</div>
+    {{ district_form.district }}
+    <input id="button" type="submit" value="Select">
+</form>
+
+{% endblock %}

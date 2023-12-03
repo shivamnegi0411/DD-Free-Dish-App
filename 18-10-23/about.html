@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="time-container">
+        <span class="time" id="indian-date"></span>
+        <span class="vertical-bar"></span>
+        <span class="time" id="indian-time"></span> 
+    </div>
+    <div class="hero">
+        <nav>
+            <img src="images/dd.png" class="logo">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <img src="images/profile.png" class="user-pic" onclick="toggleMenu()">
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="user-info">
+                        <img src="images/profile.png">
+                        <h3>Username</h3>
+                    </div>
+                    <hr>
+                    <a href="user_login.html" class="sub-menu-link">
+                        <img src="images/login.png">
+                        <p>login</p>
+                        <span>></span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <div class="moving-text-container">
+            <div class="moving-text">
+                <b>DD FREE DISH</b> 
+            </div>
+        </div>
+        <div class="about-us">
+            <h3>About Us</h3><br>
+            <b> Free Dish DTH service is owned and operated by Public Service Broadcaster Prasar Bharati </b><br>
+            <ul>
+                <li>It was launched in December, 2004. DD Free Dish is the only Free-to-Air (FTA) Direct-To-Home (DTH) Service where there is no monthly subscription fee from the viewers.</li>
+                <li>It is very affordable for all as it requires only a small one time investment of about Rs. 2000/- for purchasing of Set-to-Box (STB) and small sized Dish Antenna with accessories.</li>
+                <li>The unique free to air model has made DD Free Dish the largest DTH platform.</li><br><br>
+            </ul>
+            <img class="about-image" src="images/chatri.jpg" alt="Image Description"><br><br>
+             <p><b>Doordarshan – literally, a glimpse of all afar- is the face of and a witness to India’s metamorphosis to a global leader in digital communications.</b></p><br>
+            <ul>
+                <li>Interestingly, the illusory cyber paths that crisscross homes and streets and represent the voice a billion-plus Indians today, actually began with a modest experiment in public service telecasting on September 15, 1959. The makeshift studio and its players beamed their voice and visuals through a small transmitter, daring to dream of becoming the prime vehicle of development of a nation that had shrugged off its yoke of slavery just over a decade earlier.
+            </li>
+                <li>    The experiment became a service in 1965, when Doordarshan began beaming signals to reach television sets in living rooms in and around the country’s capital, New Delhi. By 1972, services were extended to Mumbai and Amritsar and then on, to seven other cities by 1975. All this time, it was part of the national broadcaster, All India Radio. On April 1, 1976, it transited to become a separate Department in the Ministry of Information and Broadcasting, though still serviced by All India Radio, especially for its news.
+                </li>
+                <li>    Since then, the organisation has grown to cover the length and breadth of the country, painstakingly caring for the interest of all linguistic, geographical and cultural groups and promoting social, cultural and educational development of the country though an array of transmitter networks equipped with studios and facilities to produce programmes even in regional languages.
+            </li>
+                <li>    In doing so, the country’s prime television service provider has also become the engine for celebration of its diversity and the iteration of its unity. It has been able to do so because it has no single market to pamper – because it is the harbinger of news and information services to every geographical community, all occupational group and each assemble of interests.
+            </li>
+                <li>    At Doordarshan, engineering blends with creativity to make it a role model as a matrix of genres evolve from a spread of centers, an array of transmissions and hundreds of studios. This fusion of modern digital engineering hardware and the software of a three tier programme service spreads nationally, regionally and even locally.
+            </li>
+                <li>    Over the decades, the results of this melt of engineering and creativity have captivated million who would be glued to television sets to watch anything from news to cricket match telecasts, exhibitions of art, culture and Bollywood to education on the arts and sciences alike, from catering to a vast farming community to catalysing the growth of industry and commerce.
+            </li>
+                <li>    Over the years Doordarshan has grown into a network operating 34 satellite channels besides providing free-to-air DTH service having 104 in its bookings. Indeed, that single studio from its small departmental home in All India Radio has grown into 66 studio centers all over the country, including 17 major studio centers at State capitals and 49 other studio centers located in various cities.
+            </li>
+            </ul>
+        </div>
+        
+    </div>
+    <footer>
+        <p>&copy; 2023 BVMTrios. All rights reserved.</p>
+    </footer>
+<script>
+     // JavaScript to display the Indian time and date
+     function displayIndianDateTime() {
+       const optionsTime = { timeZone: 'Asia/Kolkata', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+       const optionsDate = { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'long', day: 'numeric' };
+
+       const indianTime = new Date().toLocaleTimeString('en-US', optionsTime);
+       const indianDate = new Date().toLocaleDateString('en-US', optionsDate);
+
+       document.getElementById('indian-time').textContent = indianTime;
+       document.getElementById('indian-date').textContent = indianDate;
+   }
+
+   // Update the time and date every second
+   setInterval(displayIndianDateTime, 1000);
+
+   // Initial display
+   displayIndianDateTime();
+
+    let subMenu = document.getElementById("subMenu");
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
+</body>
+</html>

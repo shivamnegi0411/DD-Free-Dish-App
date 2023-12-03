@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+<head>
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <style>
+        .login {
+            display: flex;
+            flex:1;
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: flex-start;
+            border: solid 0.1px;
+            margin: 50px 50px;
+            padding: 30px  16px 60px 16px;
+            background: skyblue;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            border-radius: 20px; /* 5px rounded corners */
+        }
+    </style>
+</head>
+<div class="login">
+    <h3>Login</h3>
+    <form class="flex-form" method="post">
+        {% csrf_token %}
+     {{ form.username.label_tag }}
+     {{ form.username }}
+     {{ form.password.label_tag }}
+     {{ form.password }}
+<br>
+        <button class="btn" type="submit">Login</button>
+    </form>
+</div>
+
+{% include 'front_base.html' %}
+</title>
+</head>
+<body>
+
+</body>
+</html>

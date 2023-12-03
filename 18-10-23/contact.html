@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="time-container">
+        <span class="time" id="indian-date"></span>
+        <span class="vertical-bar"></span>
+        <span class="time" id="indian-time"></span> 
+    </div>
+    <div class="hero">
+        <nav>
+            <img src="images/dd.png" class="logo">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <img src="images/profile.png" class="user-pic" onclick="toggleMenu()">
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="user-info">
+                        <img src="images/profile.png">
+                        <h3>Username</h3>
+                    </div>
+                    <hr>
+                    <a href="user_login.html" class="sub-menu-link">
+                        <img src="images/login.png">
+                        <p>login</p>
+                        <span>></span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <div class="moving-text-container">
+            <div class="moving-text">
+                <b>DD FREE DISH</b> 
+            </div>
+        </div><br><br><br>
+        <section class="banner">
+            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20230822131732/images.png"
+                alt="Welcome to our Contact Us page">
+            <h1>Get in Touch With Us</h1>
+            <p>We're here to answer any questions you may have.</p>
+        </section>
+        <section class="contact-form">
+            <div class="form-container">
+                <h2>Your Details</h2>
+                <form action="#" method="POST">
+    
+                    <label for="name">Name: </label>
+                    <input type="text" id="name" name="name" required>
+    
+                    <label for="email">Email: </label>
+                    <input type="email" id="email" name="email" required>
+    
+                    <label for="phone">Phone: </label>
+                    <input type="tel" id="phone" name="phone">
+    
+                    <label for="message">Message: </label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+    
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2023 BVMTrios. All rights reserved.</p>
+    </footer>
+<script>
+    // JavaScript function to toggle the navigation menu
+    function openNavbar() {
+	    const navMenu = document.getElementById("nav-menu");
+	    navMenu.classList.toggle("active");
+    }
+
+     // JavaScript to display the Indian time and date
+     function displayIndianDateTime() {
+       const optionsTime = { timeZone: 'Asia/Kolkata', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+       const optionsDate = { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'long', day: 'numeric' };
+
+       const indianTime = new Date().toLocaleTimeString('en-US', optionsTime);
+       const indianDate = new Date().toLocaleDateString('en-US', optionsDate);
+
+       document.getElementById('indian-time').textContent = indianTime;
+       document.getElementById('indian-date').textContent = indianDate;
+    }
+
+   // Update the time and date every second
+   setInterval(displayIndianDateTime, 1000);
+
+   // Initial display
+   displayIndianDateTime();
+
+    let subMenu = document.getElementById("subMenu");
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+
+</script>
+</body>
+</html>

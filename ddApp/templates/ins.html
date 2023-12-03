@@ -1,0 +1,43 @@
+{% extends 'top.html' %}
+{% load static %}
+{% block content %}
+
+
+<head>
+    <link rel="stylesheet" href="{% static 'assign_work.css' %}">
+</head>
+
+
+<body>
+<form method="post" action="{% url 'district' %}">
+    {% csrf_token %}
+    <div id="heading">State</div>
+    {{ state_form.state }}
+    <input id="button" type="submit" value="change">
+</form>
+
+
+<form method="post" action="{% url 'blocks' ">
+    {% csrf_token %}
+    <div id="heading">District</div>
+    {{ district_form.district }}
+    <input id="button" type="submit" value="change">
+</form>
+
+<form method="post" action="{% url 'select_installer' %}">
+    {% csrf_token %}
+    <div id="heading">Block</div>
+    {{ block_form.blocks }}
+    <input id="button" type="submit" value="change">
+</form>
+
+
+<form id="openview" method='post' action="{% url 'bes' %}">
+    {% csrf_token %}
+    <div id="heading">Select Installer</div>
+    {{ installers_form.installer }}
+    <input id="button" type="submit" value="Select">
+</form>
+</body>
+</html>
+{% endblock %}

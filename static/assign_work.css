@@ -1,0 +1,38 @@
+    form {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        padding: 10%;
+        background-color: white;
+        margin: 6%;
+    }
+    #button {
+        background-color: white;
+        padding: 5%;
+        width: 80vw;
+        }
+
+     #inputfield {
+            width: 80vw;
+            padding: 5% 10%;
+
+        }
+
+       #heading {
+               text-align: center;
+               padding:3%;
+               background-color: green;
+               color: white;
+               font-weight: bold;
+               border-radius: 20px;
+               width: 80vw;
+               }
+
+       .radio-field {
+               padding: 0 20%;
+               text-align: left;
+
+
+       }

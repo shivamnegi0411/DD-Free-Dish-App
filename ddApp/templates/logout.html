@@ -1,0 +1,28 @@
+<!-- logout.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logout Confirmation</title>
+    <style>
+        body {
+        text-align:center;
+        }
+    </style>
+</head>
+<body>
+{% include 'top.html' %}
+
+
+    <h1>Logout Confirmation</h1>
+    <p>Are you sure you want to log out?</p>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+    <h3>You can go back to home from <a href="{% url 'index' %}">here</a>" </h3>
+
+
+
+</body>
+
+

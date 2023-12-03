@@ -1,0 +1,71 @@
+{% extends 'top.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .table {
+        padding: 0 10%;
+    }
+    .otp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10%;
+    float: left
+    }
+    form {
+    margin: 0;
+    padding: 0;
+    }
+    #inputfield {
+        width: 70vw;
+        height: 5vh;
+        text-align: center;
+        }
+    @media (min-width: 768px) {
+    #inputfield {
+        width: 100%;
+    }
+}
+</style>
+<body>
+
+<div class="table">
+<table>
+{% for field_name, field_value in data %}
+    {% if field_name == "picture" %}
+        <tr>
+            <td>Your Uploaded Picture</td><td><img src="{{ temp_image_url }}" style=" width:150px;height:auto; "></td>
+        </tr>
+    {% else %}
+        <tr>
+           <td> {{ field_name }}</td><td> {{ field_value }} </td>
+        </tr>
+    {% endif %}
+{% endfor %}
+</table>
+    <div class="table">
+        <table>
+            <tr>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>
+<div class="otp">
+<form method="post" action=" {% url 'final_verification' %}">
+    {% csrf_token %}
+    <input id='inputfield' type="number" name="entered_otp" placeholder="Enter OTP"><br>
+    <input id='inputfield' type="submit" value="Confirm">
+</form>
+</div>
+<div>
+
+</div>
+{% endblock %}

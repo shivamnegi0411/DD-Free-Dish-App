@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DD Free Dish</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+            #responsive {
+    display: block;
+        width:100%;
+    }
+    @media (min-width: 768px) {
+    #responsive {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+        width: 40;
+    }
+}
+    .my-header {
+        display: flex;
+        height: 80px;
+        align-items: center;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background-color: #FFCC33;
+
+    }
+
+
+    .menu-options {
+        position: absolute;
+        top: 120px; /* Adjust the top position as needed */
+        right: 0;
+        float: right;
+        display: none;
+        flex-direction: row;
+        overflow: hidden;
+        overflow: -moz-hidden-unscrollable;
+    }
+    .options {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        padding: 20px 30px;
+        margin-right: 20px;
+        text-align: center;
+        border-radius: 10px;
+        z-index: 99;
+
+    }
+    .options > a {
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid;
+    }
+
+    .menu-options-desktop {
+            display: none;
+
+        }
+
+    .menu-options-desktop > a {
+        margin-right: 100px;
+
+    }
+    #hamburger2 {
+            display: none;
+        }
+
+    .space1 {
+        flex-grow: 8;
+    }
+
+    .my-header > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    #profile {
+        display: none;
+        position: absolute;
+        float: right;
+        top: 120px;
+        right: 0;
+        margin-right: 50px;
+        padding: 10px;
+        background-color: white;
+        z-index: 2;
+    }
+    #profile > a:hover {
+            background-color: blue;
+            color: blue;
+    }
+    #profile > a > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+
+    }
+    #profile > a > div > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #profile-logo {
+        display: block;
+    }
+    #profile-logo2 {
+        display: none;
+    }
+
+    /* Styling for success messages */
+.success {
+    color: #2e8540;
+    background-color: #a0f5bc;
+    border: 1px solid #2e8540;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Styling for info messages */
+.info {
+    color: #3171b5;
+    background-color: #bed7f5;
+    border: 1px solid #3171b5;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Styling for warning messages */
+.warning {
+    color: #d18e29;
+    background-color: #f5e5a0;
+    border: 1px solid #d18e29;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Styling for error messages */
+.error {
+    color: #b53030;
+    background-color: #f5a0a0;
+    border: 1px solid #b53030;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+
+    @media screen and (min-width: 720px) {
+        .menu-options-desktop {
+            display: block;
+        }
+        #hamburger {
+            display: none;
+
+
+        }
+        #hamburger2 {
+            display: none;
+        }
+    }
+
+
+
+
+</style>
+</head>
+
+
+<body>
+    <div class="time-container">
+        <span class="time" id="indian-date"></span>
+        <span class="vertical-bar"></span>
+        <span class="time" id="indian-time"></span>
+    </div>
+</div>
+
+
+    <div class="my-header">
+        <div style="flex-grow: 1;">
+            <img src="{% static 'dd.png' %}" height="50px">
+        </div>
+        <div class="space1"></div>
+        <div style="flex-grow: 1;">
+            <div class="menu-options-desktop">
+                <a href="{% url 'index' %}"><span>Home</span></a>
+                <a href="{% url 'about' %}"><span>About</span></a>
+                <a href="{% url 'contact' %}"><span>Contact</span></a>
+            </div>
+            {% if user.is_authenticated %}
+                <img id="profile-logo" src="{% static 'images/user.png' %}" onclick="profileshow()" height="33px">
+                <img id="profile-logo2" src="{% static 'images/user.png' %}" onclick="profilehide()" height="33px">
+            {% else %}
+                <img id="profile-logo" src="{% static 'images/profile.png' %}" onclick="profileshow()" height="33px">
+                <img id="profile-logo2" src="{% static 'images/profile.png' %}" onclick="profilehide()" height="33px">
+            {% endif %}
+        </div>
+        <div style="flex-grow: 1;">
+            <span id="hamburger" onclick="showmenu()" style="font-size: 30px; ">☰</span>
+            <span id="hamburger2" onclick="hidemenu()" style="font-size: 30px;">☰</span>
+
+
+        </div>
+
+
+    </div>
+    <div id="mob-menu" class="menu-options" ">
+        <div style="flex-grow: 5;"></div>
+        <div class="options" style="flex-grow: 1;">
+            <a href="{% url 'index' %}"><span>Home</span></a>
+
+            <a href="{% url 'about' %}"><span>About</span></a>
+
+            <a href="{% url 'contact' %}"><span>Contact</span></a>
+        </div>
+    </div>
+
+
+    <div id="profile">
+        {% if user.is_authenticated %}
+        <a href="#">
+            <div>
+                <div>
+                    <img src="{% static 'images/user.png' %}" height="60px" style="margin-right:20px;">
+                </div>
+                <div>
+                    {{user.username}}
+                </div>
+            </div>
+        </a>
+        <hr>
+        <a href="{% url 'profile' %}">
+            <div>
+                <div>
+                    <img src="{% static 'images/profile.png' %}" height="40px">
+                </div>
+                <div>
+                    Profile
+                </div>
+            </div>
+        </a>
+        {% if user.is_superuser %}
+        <a href="{% url 'superuser_dashboard' %}">
+         {% else %}
+           <a href="{% url 'user_dashboard' %}">
+         {% endif %}
+        <div>
+            <div>
+                <img src="{% static 'images/setting.png' %}" height="40px">
+            </div>
+            <div>
+                Dashboard
+            </div>
+        </div>
+        </a>
+        <a href="{% url 'logout' %}">
+            <div>
+                <div>
+                    <img src="{% static 'images/logout.png' %}" height="40px">
+                </div>
+                <div>
+                        Logout
+                </div>
+            </div>
+        </a>
+        {% else %}
+        <a href="{% url 'login' %}">
+            <div>
+                <div>
+                    <img src="{% static 'images/login.png' %}" height="40px" style="margin-right:50px;">
+                </div>
+                <div style="margin-right: 10px;">
+                    Login
+                </div>
+            </div>
+        </a>
+        {% endif %}
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="moving-text-container">
+            <div class="moving-text">
+                <b>DD FREE DISH</b>
+            </div>
+        </div>
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    `{% endif %}
+
+
+        {% block content %} {% endblock %}
+    <footer>
+        <p>&copy; 2023 BVMTrios. All rights reserved.</p>
+    </footer>
+
+
+
+<script>
+    function showmenu() {
+        document.getElementById('hamburger').style.display="none";
+        document.getElementById('hamburger2').style.display="flex";
+        document.getElementById('mob-menu').style.display="flex";
+        if (window.innerWidth <= 720) {
+           document.getElementById('profile-logo').style.display="block";
+            document.getElementById('profile-logo2').style.display="none";
+            document.getElementById('profile').style.display="none";
+  }
+
+
+    }
+    function hidemenu() {
+        document.getElementById('hamburger').style.display="flex";
+        document.getElementById('hamburger2').style.display="none";
+        document.getElementById('mob-menu').style.display="none";
+    }
+
+    function profileshow() {
+        document.getElementById('profile-logo').style.display="none";
+        document.getElementById('profile-logo2').style.display="block";
+        document.getElementById('profile').style.display="block";
+        if (window.innerWidth <= 720) {
+            document.getElementById('hamburger').style.display="flex";
+            document.getElementById('hamburger2').style.display="none";
+            document.getElementById('mob-menu').style.display="none";
+        }
+
+    }
+    function profilehide() {
+        document.getElementById('profile-logo').style.display="block";
+        document.getElementById('profile-logo2').style.display="none";
+        document.getElementById('profile').style.display="none";
+    }
+
+
+     // JavaScript to display the Indian time and date
+     function displayIndianDateTime() {
+       const optionsTime = { timeZone: 'Asia/Kolkata', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+       const optionsDate = { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'long', day: 'numeric' };
+
+       const indianTime = new Date().toLocaleTimeString('en-US', optionsTime);
+       const indianDate = new Date().toLocaleDateString('en-US', optionsDate);
+
+       document.getElementById('indian-time').textContent = indianTime;
+       document.getElementById('indian-date').textContent = indianDate;
+
+   }
+
+   // Update the time and date every second
+   setInterval(displayIndianDateTime, 1000);
+
+   // Initial display
+   displayIndianDateTime();
+
+    let subMenu = document.getElementById("subMenu");
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const elementToScrollTo = document.getElementById('openview');
+    if (elementToScrollTo) {
+        elementToScrollTo.scrollIntoView({ behavior: 'smooth' });
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends 'top.html' %}
+{% load static %}
+{% block content %}
+
+
+{% load static %}
+
+{% if bes %}
+
+<h5>Beneficiary Details</h5>
+<ul>
+    <li>Name : {{ bes.name }}</li>
+    <li>Mobile : {{ bes.mobile }}</li>
+    <li>State : {{ bes.state }}</li>
+    <li>District : {{ bes.district }}</li>
+    <li>Block : {{ bes.block }}</li>
+</ul>
+
+{% endif %}
+
+{% if ins %}
+
+<h5>Installer Details</h5>
+<ul>
+    <li>Name : {{ ins.name }}</li>
+    <li>Mobile : {{ ins.mobile }}</li>
+    <li>State : {{ ins.state }}</li>
+    <li>District : {{ ins.district }}</li>
+    <li>Block : {{ ins.block }}</li>
+</ul>
+
+{% endif %}
+
+
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'top.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        align-content:center;
+        margin-top: 10vh;
+
+
+    }
+
+    form > div {
+        margin-bottom: 1em;
+    }
+    #beneficiary-field {
+        width: 80vw;
+        font-size: 2vh;
+        text-align: center;
+        background-color: rgb(23, 173, 232);
+        color: white;
+    }
+    #setup-box-field {
+        text-align: center;
+        width: 80vw;
+        font-size: 2vh;
+        padding: 1em;
+    }
+    #sub_btn {
+        width: 80vw;
+        height: 3em;
+        font-size: 2vh;
+        background-color: rgb(23, 173, 232);
+        color:white;
+
+    }
+    #picture {
+        text-align: center;
+        width: 80vw;
+        font-size: 2vh;
+        padding: 1em;
+        background-color: white;
+        border: 1px solid;
+    }
+    form > .mrg-left {
+        margin-left:10%;
+    }
+
+</style>
+</head>
+
+
+
+
+{% if beneficiary_registered is None %}
+
+<form id="process_form" method="post" action="{% url 'verify_otp' task_id %}">
+    {% csrf_token %}
+    <div>{{ form.beneficiary }}</div>
+    <div>{{ form.setup_box }}</div>
+    <div><input id="sub_btn" type="submit" value="Send Otp"></div>
+</form>
+
+
+{% else %}
+
+
+<form method="post" action="{% url 'create_pdf' task_id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mrg-left">{{ form_2.as_p}}</div>
+<input id="sub_btn" type="submit" value="submit form">
+</form>
+
+
+{% endif %}
+
+
+
+{% endblock %}
+
+
+
